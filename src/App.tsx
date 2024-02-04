@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div>
-      <h2>UseState</h2>
+      <h1>UseState</h1>
       
       <button onClick={incrementValue}>Incrementar +</button>
       <button onClick={decrementValue}>Decrementar -</button>
@@ -107,7 +107,7 @@ function App() {
       <hr />
       <hr />
 
-      <h2>Componentes e Propriedades</h2>
+      <h1>Componentes e Propriedades</h1>
       <UserProfile name="Leandro" age={31} location="Tucuruí"/>
 
       <h3>TaskList</h3>
