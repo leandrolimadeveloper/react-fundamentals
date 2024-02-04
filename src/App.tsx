@@ -1,43 +1,48 @@
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react";
+
+import { UserProfile } from "./components/UserProfile";
+import { TaskList } from "./components/UserCars";
 
 function App() {
-  const [value, setValue] = useState(0)
-  const [text, setText] = useState('')
+  const [value, setValue] = useState(0);
+  const [text, setText] = useState("");
 
-  const [nome, setNome] = useState<string>('')
-  const [sobrenome, setSobrenome] = useState<string>('')
-  const [cidade, setCidade] = useState<string>('')
-  const [idade, setIdade] = useState<number>(0)
+  const [nome, setNome] = useState<string>("");
+  const [sobrenome, setSobrenome] = useState<string>("");
+  const [cidade, setCidade] = useState<string>("");
+  const [idade, setIdade] = useState<number>(0);
+
+  const tasks: string[] = ['Estudar React', 'Comprar sorvete']
 
   function incrementValue() {
-    setValue(value + 1)
+    setValue(value + 1);
   }
 
   function decrementValue() {
-    setValue((prevState) => prevState - 1)
+    setValue((prevState) => prevState - 1);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setText(e.target.value)
+    setText(e.target.value);
   }
 
   function handleSobrenome(event: ChangeEvent<HTMLInputElement>) {
-    setSobrenome(event.target.value)
+    setSobrenome(event.target.value);
   }
 
   function handleCidade(event: ChangeEvent<HTMLInputElement>) {
-    setCidade(event.target.value)
+    setCidade(event.target.value);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    alert(`Nome: ${nome} ${sobrenome}, Idade: ${idade}, ${cidade}`)
+    event.preventDefault();
+    alert(`Nome: ${nome} ${sobrenome}, Idade: ${idade}, ${cidade}`);
   }
-
-
 
   return (
     <div>
+      <h2>UseState</h2>
+      
       <button onClick={incrementValue}>Incrementar +</button>
       <button onClick={decrementValue}>Decrementar -</button>
       <p>{value}</p>
@@ -47,36 +52,70 @@ function App() {
         <input type="text" value={text} onChange={handleChange} />
         <p>Texto digitado: {text}</p>
       </div>
-      
+
       <h2>Form</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="nome">
           Nome:
-          <input type="text" id="nome" value={nome} onChange={(event: ChangeEvent<HTMLInputElement>) => setNome(event.target.value)} />
+          <input
+            type="text"
+            id="nome"
+            value={nome}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setNome(event.target.value)
+            }
+          />
         </label>
 
         <label htmlFor="idade">
           Idade:
-          <input type="number" id="idade" value={idade} onChange={(event: ChangeEvent<HTMLInputElement>) => setIdade(Number(event.target.value))} />
+          <input
+            type="number"
+            id="idade"
+            value={idade}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setIdade(Number(event.target.value))
+            }
+          />
         </label>
 
         <label htmlFor="sobrenome">
           Sobrenome:
-          <input type="text" id="nome" value={sobrenome} onChange={handleSobrenome}/>
+          <input
+            type="text"
+            id="nome"
+            value={sobrenome}
+            onChange={handleSobrenome}
+          />
         </label>
 
         <label htmlFor="cidade">
           Cidade:
-          <input type="text" id="cidade" value={cidade} onChange={handleCidade} />
+          <input
+            type="text"
+            id="cidade"
+            value={cidade}
+            onChange={handleCidade}
+          />
         </label>
-
 
         <button type="submit">Enviar</button>
       </form>
 
-    </div>
+      <br /><br />
 
-  )
+      <hr />
+      <hr />
+
+      <h2>Componentes e Propriedades</h2>
+      <UserProfile name="Leandro" age={31} location="Tucuruí"/>
+
+      <h3>TaskList</h3>
+      <TaskList tasks={['Comprar pão', 'Limpar a casa']}/>
+      
+      <TaskList tasks={tasks} />
+    </div>
+  );
 }
 
-export default App
+export default App;
