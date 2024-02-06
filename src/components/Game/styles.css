@@ -1,0 +1,9 @@
+ul {
+    list-style-type: none;
+}
+
+ul > li:first-child {
+    font-size: 20px;
+    color: rgb(13, 135, 184);
+}
+

@@ -2,6 +2,10 @@ import { ChangeEvent, FormEvent, useState } from "react";
 
 import { UserProfile } from "./components/UserProfile";
 import { TaskList } from "./components/UserCars";
+import { MovieList } from "./components/MovieList";
+
+import { GameList } from "./components/Game/GameList";
+import { games } from "./data/games";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -14,6 +18,15 @@ function App() {
 
   const tasks: string[] = ['Estudar React', 'Comprar sorvete']
 
+  // Movies
+  const movies = [
+    {title: 'Inception', genre: 'Sci-Fi', releaseYear: 2010},
+    {title: 'The Shawshank Redepmtion', genre: 'Drama', releaseYear: 1994},
+    {title: 'The Dark Knight', genre: 'Action', releaseYear: 2008}
+  ]
+
+
+  
   function incrementValue() {
     setValue(value + 1);
   }
@@ -114,6 +127,12 @@ function App() {
       <TaskList tasks={['Comprar pão', 'Limpar a casa']}/>
       
       <TaskList tasks={tasks} />
+
+      {/* Componente Lista de Filmes */}
+      <MovieList movies={movies}/>
+
+      {/* Componente Lista dos melhores games */}
+      <GameList games={games}/>
     </div>
   );
 }
