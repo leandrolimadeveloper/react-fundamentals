@@ -6,6 +6,7 @@ import { MovieList } from "./components/MovieList";
 
 import { GameList } from "./components/Game/GameList";
 import { games } from "./data/games";
+import Contexts from "./Contexts";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -133,7 +134,14 @@ function App() {
 
       {/* Componente Lista dos melhores games */}
       <GameList games={games}/>
+      <div>
+        <h2>Contextos</h2>
+        <Contexts />
+      </div>
+
     </div>
+
+    
   );
 }
 
