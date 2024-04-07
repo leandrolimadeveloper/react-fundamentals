@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useReducer, useState } from "react";
 
 import { UserProfile } from "./components/UserProfile";
 import { TaskList } from "./components/TaskList";
@@ -8,7 +8,35 @@ import { GameList } from "./components/Game/GameList";
 import { games } from "./data/games";
 import Contexts from "./Contexts";
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'Increment': 
+      return { ...state, count: state.count + 1}
+    
+    case 'CarSelected':
+      return {...state, showCar: !state.showCar}
+    
+    case 'IncrementValueAndShowCar':
+      return {...state, count: state.count + 1, showCar: !state.showCar}
+
+    case 'ResetValue':
+      return { count: 0, showCar: false}
+
+    default: 
+      return state
+  }
+}
+
 function App() {
+  // Reducer
+  const [state, dispatch] = useReducer(reducer, {
+    count: 0,  
+    showCar: false
+  })
+  
+  const [textCar, setTextCar] = useState<string>("")
+  // const [showCar, setShowCar] = useState<boolean>(false)
+  
   const [value, setValue] = useState(0);
   const [text, setText] = useState("");
 
@@ -26,8 +54,6 @@ function App() {
     {title: 'The Dark Knight', genre: 'Action', releaseYear: 2008}
   ]
 
-
-  
   function incrementValue() {
     setValue(value + 1);
   }
@@ -51,6 +77,32 @@ function App() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     alert(`Nome: ${nome} ${sobrenome}, Idade: ${idade}, ${cidade}`);
+  }
+
+  function handleCount() {
+    dispatch({type: 'Increment'})
+  }
+
+  function handleCarSelection() {
+    const car = prompt("Insira o modelo e marca do carro: ")
+    
+    // if (car !== null) {
+    //   setTextCar(car)
+    // }
+
+    car !== null ? setTextCar(car) : setTextCar("")
+
+    // setShowCar(!showCar)
+
+    dispatch({type: 'CarSelected'})
+  }
+
+  function handleClick() {
+    const car = prompt("Insira o modelo e marca do carro: ")
+
+    car !== null ? setTextCar(car) : setTextCar("")
+
+    dispatch({type: 'IncrementValueAndShowCar'})
   }
 
   return (
@@ -139,9 +191,20 @@ function App() {
         <Contexts />
       </div>
 
-    </div>
+      <h2>useReducer</h2>
+      <button onClick={handleCount}>Count: {state.count}</button>
+      
+      <p>Que carro você deseja?</p>
 
-    
+      <button onClick={handleCarSelection}>Responder</button>
+      {state.showCar && <p>O carro desejado é: {textCar}</p>}
+
+      <button onClick={handleClick}>Mostrar carro desejado e aumentar contador</button>
+      {state.showCar && <p>O carro desejado é: {textCar}</p>}
+      <p>Contador: {state.count}</p>
+
+      <button onClick={() => dispatch({ type: 'ResetValue'})}>Resetar valores</button>
+    </div>
   );
 }
 
