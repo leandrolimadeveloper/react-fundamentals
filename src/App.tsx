@@ -192,12 +192,14 @@ function App() {
       </div>
 
       <h2>useReducer</h2>
-      <button onClick={handleCount}>Count: {state.count}</button>
+      <button onClick={handleCount}>Count: {state.count}</button><br /><br />
       
-      <p>Que carro você deseja?</p>
+      <p style={{display: 'inline', border: '2px solid red'}}>Que carro você deseja?</p>
 
       <button onClick={handleCarSelection}>Responder</button>
       {state.showCar && <p>O carro desejado é: {textCar}</p>}
+
+      <br /><br />
 
       <button onClick={handleClick}>Mostrar carro desejado e aumentar contador</button>
       {state.showCar && <p>O carro desejado é: {textCar}</p>}
